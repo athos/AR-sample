@@ -13,6 +13,12 @@
   (dom/appendChild (dom/getElement "app")
                    (.-domElement renderer)))
 
+(defn- resize [{:keys [source context renderer]}]
+  (.onResizeElement source)
+  (.copyElementSizeTo source (.-domElement renderer))
+  (when (.-arController context)
+    (.copyElementSizeTo source (.. context -arController -canvas))))
+
 (defn start [{:keys [app-state renderer source] :as app}]
   (letfn [(render []
             (when (:running? @app-state)
@@ -20,6 +26,7 @@
               (when (.-ready source)
                 (.update (:context app) (.-domElement source))
                 (.render renderer (:scene app) (:camera app)))))]
+    (.init source #(resize app))
     (setup-renderer renderer)
     (swap! app-state assoc :running? true)
     (render)))
