@@ -1,10 +1,8 @@
-# ar-sample
-
-FIXME: Write a one-line description of your library/project.
+# AR-sample
 
 ## Overview
 
-FIXME: Write a paragraph about the library/project and highlight its goals.
+AR sample project using AR.js from ClojureScript
 
 ## Setup
 
@@ -34,6 +32,6 @@ get live reloading, nor a REPL.
 
 ## License
 
-Copyright © 2014 FIXME
+Copyright © 2017 Shogo Ohta
 
-Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
+Distributed under the Eclipse Public License either version 1.0.
