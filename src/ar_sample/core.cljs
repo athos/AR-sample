@@ -22,6 +22,7 @@
    :app       {:app-state (ig/ref :app-state)
                :source (ig/ref :source)
                :renderer (ig/ref :renderer)
+               :mesh (ig/ref :mesh)
                :scene (ig/ref :scene)
                :camera (ig/ref :camera)
                :context (ig/ref :context)}})

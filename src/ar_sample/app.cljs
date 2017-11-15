@@ -19,11 +19,16 @@
   (when (.-arController context)
     (.copyElementSizeTo source (.. context -arController -canvas))))
 
+(defn animate [{:keys [mesh]}]
+  (set! (.. mesh -rotation -x) (+ (.. mesh -rotation -x) 0.05))
+  (set! (.. mesh -rotation -y) (+ (.. mesh -rotation -y) 0.05)))
+
 (defn start [{:keys [app-state renderer source] :as app}]
   (letfn [(render []
             (when (:running? @app-state)
               (js/requestAnimationFrame render)
               (when (.-ready source)
+                (animate app)
                 (.update (:context app) (.-domElement source))
                 (.render renderer (:scene app) (:camera app)))))]
     (.init source #(resize app))
