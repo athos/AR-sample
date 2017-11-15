@@ -1,5 +1,7 @@
 (ns ar-sample.context
-  (:require [integrant.core :as ig]))
+  (:require ar-sample.camera
+            ar-sample.source
+            [integrant.core :as ig]))
 
 (defmethod ig/init-key :context [_ {:keys [source camera]}]
   (let [opts #js{:debug false
