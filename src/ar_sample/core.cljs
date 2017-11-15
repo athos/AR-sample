@@ -1,5 +1,6 @@
 (ns ar-sample.core
   (:require ar-sample.app
+            [goog.events :as events]
             [integrant.core :as ig]))
 
 (enable-console-print!)
@@ -32,8 +33,8 @@
 
 (def system (atom nil))
 
-(.addEventListener js/window "load"
-                   #(reset! system (ig/init +config+)))
+(events/listen js/window events/EventType.LOAD
+               #(reset! system (ig/init +config+)))
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
