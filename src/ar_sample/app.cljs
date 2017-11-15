@@ -5,12 +5,13 @@
             ar-sample.renderer
             ar-sample.scene
             ar-sample.source
+            [goog.dom :as dom]
             [integrant.core :as ig]))
 
 (defn- setup-renderer [renderer]
   (.setSize renderer 640 480)
-  (.appendChild (js/document.getElementById "app")
-                (.-domElement renderer)))
+  (dom/appendChild (dom/getElement "app")
+                   (.-domElement renderer)))
 
 (defn start [{:keys [app-state renderer source] :as app}]
   (letfn [(render []
@@ -28,4 +29,5 @@
   opts)
 
 (defmethod ig/halt-key! :app [_ app]
+  (dom/removeChildren (dom/getElement "app"))
   (swap! (:app-state app) assoc :running? false))
