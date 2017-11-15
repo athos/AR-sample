@@ -5,8 +5,6 @@
 
 (enable-console-print!)
 
-(println "This text is printed from src/ar-sample/core.cljs. Go ahead and edit it and see reloading in action.")
-
 (def +config+
   {:app-state {}
    :source    {}
@@ -28,16 +26,15 @@
                :camera (ig/ref :camera)
                :context (ig/ref :context)}})
 
-(defmethod ig/init-key :system [_ {:keys [app]}]
-  {:app app})
+(defonce system (atom nil))
 
-(def system (atom nil))
+(defn init []
+  (reset! system (ig/init +config+)))
 
-(events/listen js/window events/EventType.LOAD
-               #(reset! system (ig/init +config+)))
+(events/listen js/window events/EventType.LOAD init)
 
 (defn on-js-reload []
-  ;; optionally touch your app-state to force rerendering depending on
-  ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
-)
+  (print "reloading system ... ")
+  (ig/halt! @system)
+  (init)
+  (println "reloading done."))
