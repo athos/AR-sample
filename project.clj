@@ -38,7 +38,8 @@
   :figwheel {:css-dirs ["resources/public/css"]}
 
   :profiles {:dev {:dependencies [[binaryage/devtools "0.9.4"]
-                                  [figwheel-sidecar "0.5.14"]
+                                  [figwheel-sidecar "0.5.14" :exclusions [[http-kit]]]
+                                  [http-kit "2.3.0-alpha4"]
                                   [com.cemerick/piggieback "0.2.2"]]
                    :source-paths ["src" "dev"]
                    :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
