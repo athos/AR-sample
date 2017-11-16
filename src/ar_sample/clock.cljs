@@ -9,7 +9,5 @@
                  :bevelEnabled false}
         geo (js/THREE.TextGeometry. "ABC" opts)
         mat (js/THREE.MeshNormalMaterial. #js{:transparent false
-                                              :side js/THREE.DoubleSide})
-        clock (js/THREE.Mesh. geo mat)]
-    (.set (.-position clock) 0 0 0)
-    clock))
+                                              :side js/THREE.DoubleSide})]
+    (js/THREE.Mesh. geo mat)))
