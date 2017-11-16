@@ -18,7 +18,9 @@
    :mesh      {}
    :context   {:source (ig/ref :source)
                :camera (ig/ref :camera)}
+   :clock     {:fonts (ig/ref :fonts)}
    :marker    {:context (ig/ref :context)
+               :clock (ig/ref :clock)
                :mesh (ig/ref :mesh)}
    :scene     {:camera (ig/ref :camera)
                :light (ig/ref :light)
