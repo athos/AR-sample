@@ -8,8 +8,9 @@
   (let [marker (js/THREE.Group.)
         opts #js{:type "pattern", :patternUrl "/data/hiro.patt"}]
     (js/THREEx.ArMarkerControls. context marker opts)
-    (.set (.-position clock) 0 0 0)
+    (set! (.. clock -rotation -x) (- (/ js/Math.PI 2)))
+    (.set (.-position clock) -0.46 0.2 0.1)
     (.add marker clock)
-    (.set (.-position mesh) 0 0.5 0)
+    (.set (.-position mesh) 0 0.1 0)
     (.add marker mesh)
     marker))

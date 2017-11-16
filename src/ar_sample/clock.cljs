@@ -3,11 +3,11 @@
 
 (defmethod ig/init-key :clock [_ {:keys [fonts]}]
   (let [opts #js{:font (:helvetiker fonts)
-                 :size 1
-                 :height 0.5
+                 :size 0.175
+                 :height 0.05
                  :curveSegments 12
                  :bevelEnabled false}
-        geo (js/THREE.TextGeometry. "ABC" opts)
+        geo (js/THREE.TextGeometry. "00:00:00" opts)
         mat (js/THREE.MeshNormalMaterial. #js{:transparent false
                                               :side js/THREE.DoubleSide})]
     (js/THREE.Mesh. geo mat)))
