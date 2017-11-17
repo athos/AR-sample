@@ -23,7 +23,7 @@
 
 (defn start [{:keys [app-state renderer source] :as app}]
   (letfn [(render []
-            (when (:running? @app-state)
+            (when (:app/running? @app-state)
               (js/requestAnimationFrame render)
               (when (.-ready source)
                 (animate app)
@@ -31,7 +31,7 @@
                 (.render renderer (:scene app) (:camera app)))))]
     (.init source #(resize app))
     (setup-renderer renderer)
-    (swap! app-state assoc :running? true)
+    (swap! app-state assoc :app/running? true)
     (render)))
 
 (defmethod ig/init-key :app [_ opts]
@@ -40,4 +40,4 @@
 
 (defmethod ig/halt-key! :app [_ app]
   (dom/removeChildren (dom/getElement "app"))
-  (swap! (:app-state app) assoc :running? false))
+  (swap! (:app-state app) assoc :app/running? false))
