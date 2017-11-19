@@ -25,8 +25,6 @@
     (when (.-arController context)
       (.copyElementSizeTo source (.. context -arController -canvas)))))
 
-(defn animate [app])
-
 (defn start [app]
   (let [{:keys [^js/THREEx.ArToolkitContext context
                 ^js/THREE.WebGLRenderer renderer
@@ -35,7 +33,6 @@
               (when (:app/running? @(:app-state app))
                 (js/requestAnimationFrame render)
                 (when (.-ready source)
-                  (animate app)
                   (.update ^js/THREEx.ArToolkitContext context
                            (.-domElement source))
                   (.render renderer (:scene app) (:camera app)))))]
