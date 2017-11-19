@@ -34,6 +34,7 @@
                 :compiler {:output-to "resources/public/js/compiled/ar_sample.js"
                            :main ar-sample.core
                            :optimizations :advanced
+                           :infer-externs true
                            :pretty-print false}}]}
 
   :figwheel {:css-dirs ["resources/public/css"]}

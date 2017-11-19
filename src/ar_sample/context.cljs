@@ -3,7 +3,10 @@
             ar-sample.source
             [integrant.core :as ig]))
 
-(defmethod ig/init-key :context [_ {:keys [source camera]}]
+(set! *warn-on-infer* true)
+
+(defmethod ig/init-key :context [_ {:keys [^js/THREEx.ArToolkitSource source
+                                           ^js/THREE.Camera camera]}]
   (let [opts #js{:debug false
                  :cameraParametersUrl "/data/camera_para.dat"
                  :detectionMode "mono"

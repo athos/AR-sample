@@ -9,32 +9,41 @@
             [goog.events :as events]
             [integrant.core :as ig]))
 
-(defn- setup-renderer [renderer]
+(set! *warn-on-infer* true)
+
+(defn- setup-renderer [^js/THREE.WebGLRenderer renderer]
   (.setSize renderer 640 480)
   (dom/appendChild (dom/getElement "app")
                    (.-domElement renderer)))
 
-(defn- resize [{:keys [source context renderer]}]
-  (.onResizeElement source)
-  (.copyElementSizeTo source (.-domElement renderer))
-  (when (.-arController context)
-    (.copyElementSizeTo source (.. context -arController -canvas))))
+(defn- resize [app]
+  (let [{:keys [^js/THREEx.ArToolkitSource source
+                ^js/THREEx.ArToolkitContext context
+                ^js/THREE.WebGLRenderer renderer]} app]
+    (.onResizeElement source)
+    (.copyElementSizeTo source (.-domElement renderer))
+    (when (.-arController context)
+      (.copyElementSizeTo source (.. context -arController -canvas)))))
 
 (defn animate [app])
 
-(defn start [{:keys [app-state renderer source] :as app}]
-  (letfn [(render []
-            (when (:app/running? @app-state)
-              (js/requestAnimationFrame render)
-              (when (.-ready source)
-                (animate app)
-                (.update (:context app) (.-domElement source))
-                (.render renderer (:scene app) (:camera app)))))]
-    (.init source #(resize app))
-    (events/listen js/window "resize" #(resize app))
-    (setup-renderer renderer)
-    (swap! app-state assoc :app/running? true)
-    (render)))
+(defn start [app]
+  (let [{:keys [^js/THREEx.ArToolkitContext context
+                ^js/THREE.WebGLRenderer renderer
+                ^js/THREEx.ArToolkitSource source]} app]
+    (letfn [(render []
+              (when (:app/running? @(:app-state app))
+                (js/requestAnimationFrame render)
+                (when (.-ready source)
+                  (animate app)
+                  (.update ^js/THREEx.ArToolkitContext context
+                           (.-domElement source))
+                  (.render renderer (:scene app) (:camera app)))))]
+      (.init source #(resize app))
+      (events/listen js/window "resize" #(resize app))
+      (setup-renderer renderer)
+      (swap! (:app-state app) assoc :app/running? true)
+      (render))))
 
 (defmethod ig/init-key :app [_ opts]
   (start opts)

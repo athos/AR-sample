@@ -3,6 +3,8 @@
             [goog.events :as events]
             [integrant.core :as ig]))
 
+(set! *warn-on-infer* true)
+
 (enable-console-print!)
 
 (def ^:private HELVETIKER_FONT_PATH

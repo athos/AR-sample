@@ -1,6 +1,8 @@
 (ns ar-sample.renderer
   (:require [integrant.core :as ig]))
 
+(set! *warn-on-infer* true)
+
 (defmethod ig/init-key :renderer [_ _]
   (let [opts #js{:antialias true, :alpha true}
         renderer (js/THREE.WebGLRenderer. opts)]

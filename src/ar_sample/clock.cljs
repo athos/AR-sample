@@ -3,6 +3,8 @@
             goog.string.format
             [integrant.core :as ig]))
 
+(set! *warn-on-infer* true)
+
 (defn- make-clock [time font]
   (let [opts #js{:font font
                  :size 0.175
@@ -22,7 +24,7 @@
                                     (.getMinutes now)
                                     (.getSeconds now))]
               (make-clock time (:helvetiker fonts))))
-          (rec [clock target on-update]
+          (rec [clock ^js/THREE.Group target on-update]
             (when (:clock/running? @app-state)
               (when clock (.remove target clock))
               (let [clock' (new-clock)]
