@@ -8,7 +8,7 @@
 
 (defmethod ig/init-key :marker [_ {:keys [context clock mesh]}]
   (let [marker (js/THREE.Group.)
-        opts #js{:type "pattern", :patternUrl "/data/hiro.patt"}]
+        opts #js{:type "pattern", :patternUrl "data/hiro.patt"}]
     (js/THREEx.ArMarkerControls. context marker opts)
     (clock/attach-clock clock marker
       (fn [^js/THREE.Mesh c]

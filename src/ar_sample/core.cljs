@@ -8,7 +8,7 @@
 (enable-console-print!)
 
 (def ^:private HELVETIKER_FONT_PATH
-  "/data/helvetiker_regular.typeface.json")
+  "data/helvetiker_regular.typeface.json")
 
 (def +config+
   {:app-state {}
