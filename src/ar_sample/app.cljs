@@ -6,6 +6,7 @@
             ar-sample.scene
             ar-sample.source
             [goog.dom :as dom]
+            [goog.events :as events]
             [integrant.core :as ig]))
 
 (defn- setup-renderer [renderer]
@@ -30,6 +31,7 @@
                 (.update (:context app) (.-domElement source))
                 (.render renderer (:scene app) (:camera app)))))]
     (.init source #(resize app))
+    (events/listen js/window "resize" #(resize app))
     (setup-renderer renderer)
     (swap! app-state assoc :app/running? true)
     (render)))
@@ -40,4 +42,5 @@
 
 (defmethod ig/halt-key! :app [_ app]
   (dom/removeChildren (dom/getElement "app"))
+  (events/removeAll js/window "resize")
   (swap! (:app-state app) assoc :app/running? false))
